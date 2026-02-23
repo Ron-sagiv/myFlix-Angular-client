@@ -13,7 +13,8 @@ const apiUrl = 'https://flixirama-1ce078bad93f.herokuapp.com/';
 @Injectable({
   providedIn: 'root',
 })
-export class UserRegistrationService {
+export class FetchApiDataService {
+  //changed from userRegistration
   constructor(private http: HttpClient) {}
 
   // ==========================
