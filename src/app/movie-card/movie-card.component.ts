@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MovieDetailsDialogComponent } from '../movie-details-dialog/movie-details-dialog.component';
 import { DirectorDialogComponent } from '../director-dialog/director-dialog.component';
 import { GenreDialogComponent } from '../genre-dialog/genre-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-movie-card',
@@ -17,6 +18,7 @@ export class MovieCardComponent implements OnInit {
   constructor(
     private fetchApiData: FetchApiDataService,
     private dialog: MatDialog,
+    private snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -27,6 +29,11 @@ export class MovieCardComponent implements OnInit {
     this.fetchApiData.getAllMovies().subscribe((resp: any) => {
       this.movies = resp;
     });
+  }
+
+  isFavorite(movieId: string): boolean {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return user.favoriteMovies.indexOf(movieId) > -1;
   }
 
   openMovieDetails(movie: any): void {
@@ -51,11 +58,30 @@ export class MovieCardComponent implements OnInit {
   }
 
   addToFavorites(movie: any): void {
-    const user = localStorage.getItem('user');
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
     if (user) {
-      this.fetchApiData.addFavoriteMovie(user, movie._id).subscribe(() => {
-        alert('Added to favorites!');
-      });
+      this.fetchApiData
+        .addFavoriteMovie(user.userName, movie._id)
+        .subscribe(() => {
+          this.snackBar.open('Movie added to Favorite List!', 'OK', {
+            duration: 2000,
+          });
+          // Update the LocalStorage user object
+        });
+    }
+  }
+
+  removeFromFavorites(movie: any): void {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (user) {
+      this.fetchApiData
+        .deleteFavoriteMovie(user.userName, movie._id)
+        .subscribe((resp) => {
+          this.snackBar.open('Movie removed from Favorite List!', 'OK', {
+            duration: 2000,
+          });
+          // Update the Favorites ID by maintaining a variable or sync user local storage
+        });
     }
   }
 }

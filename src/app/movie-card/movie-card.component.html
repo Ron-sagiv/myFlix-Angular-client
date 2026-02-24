@@ -11,7 +11,18 @@
       <button mat-button (click)="openGenre(movie)">Genre</button>
       <button mat-button (click)="openDirector(movie)">Director</button>
       <button mat-button (click)="openMovieDetails(movie)">Details</button>
-      <button mat-icon-button (click)="addToFavorites(movie)">
+      <button
+        mat-icon-button
+        (click)="removeFromFavorites(movie)"
+        *ngIf="isFavorite(movie._id)"
+      >
+        <mat-icon>favorite</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        (click)="addToFavorites(movie)"
+        *ngIf="!isFavorite(movie._id)"
+      >
         <mat-icon>favorite_border</mat-icon>
       </button>
     </mat-card-actions>

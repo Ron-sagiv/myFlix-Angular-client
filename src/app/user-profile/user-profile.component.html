@@ -25,54 +25,79 @@
     </mat-card-content>
   </mat-card>
 
-  <!-- EDIT PROFILE SECTION -->
-  <mat-card class="profile-card edit-section">
-    <mat-card-header>
-      <mat-card-title>Edit Profile</mat-card-title>
-    </mat-card-header>
+  <!-- FAVORITE MOVIES -->
+  <h2>Favorite Movies</h2>
+  <mat-list>
+    <mat-list-item *ngFor="let movie of favoriteMovies">
+      <!-- <mat-icon matListItemIcon>folder</mat-icon> -->
 
-    <mat-card-content>
-      <mat-form-field appearance="fill">
-        <mat-label>Username</mat-label>
-        <input matInput [(ngModel)]="updatedUser.userName" />
-      </mat-form-field>
+      <img matListItemAvatar src="{{ movie.imageUrl }}" />
+      <div matListItemTitle>{{ movie.title }}</div>
+      <div matListItemLine>{{ movie.director.name }}</div>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Email</mat-label>
-        <input matInput [(ngModel)]="updatedUser.email" />
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Password</mat-label>
-        <input matInput [(ngModel)]="updatedUser.password" />
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Birthday</mat-label>
-        <input matInput type="date" [(ngModel)]="updatedUser.birthday" />
-      </mat-form-field>
-    </mat-card-content>
-
-    <mat-card-actions>
-      <button mat-raised-button color="primary" (click)="updateUser()">
-        Save Changes
+      <button
+        matListItemLine
+        mat-icon-button
+        (click)="removeFromFavorites(movie)"
+      >
+        <mat-icon>remove_circle</mat-icon>
       </button>
-    </mat-card-actions>
-  </mat-card>
-
-  <!-- DELETE ACCOUNT SECTION -->
-  <mat-card class="profile-card danger-zone">
-    <mat-card-header>
-      <mat-card-title>Danger Zone</mat-card-title>
-    </mat-card-header>
-
-    <mat-card-content>
-      <p>This action cannot be undone.</p>
-    </mat-card-content>
-
-    <mat-card-actions>
-      <button mat-raised-button color="warn" (click)="deleteUser()">
-        Delete Account
-      </button>
-    </mat-card-actions>
-  </mat-card>
+    </mat-list-item>
+  </mat-list>
 </div>
+
+<!-- EDIT PROFILE SECTION -->
+<mat-card class="profile-card edit-section">
+  <mat-card-header>
+    <mat-card-title>Edit Profile</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-form-field appearance="fill">
+      <mat-label>Username</mat-label>
+      <input matInput [(ngModel)]="updatedUser.userName" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput [(ngModel)]="updatedUser.email" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        [(ngModel)]="updatedUser.password"
+        type="password"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Birthday</mat-label>
+      <input matInput type="date" [(ngModel)]="updatedUser.birthday" />
+    </mat-form-field>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="updateUser()">
+      Save Changes
+    </button>
+  </mat-card-actions>
+</mat-card>
+
+<!-- DELETE ACCOUNT SECTION -->
+<mat-card class="profile-card danger-zone">
+  <mat-card-header>
+    <mat-card-title>Danger Zone</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <p>This action cannot be undone.</p>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-raised-button color="warn" (click)="deleteUser()">
+      Delete Account
+    </button>
+  </mat-card-actions>
+</mat-card>

@@ -15,6 +15,7 @@ export class UserProfileComponent implements OnInit {
     email: '',
     birthday: '',
   };
+  favoriteMovies: any = [];
 
   constructor(
     private fetchApiData: FetchApiDataService,
@@ -22,33 +23,57 @@ export class UserProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const userName = localStorage.getItem('user');
-    if (userName) {
-      this.fetchApiData.getUser(userName).subscribe((resp: any) => {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (user) {
+      this.fetchApiData.getUser(user.userName).subscribe((resp: any) => {
         this.user = resp;
+        console.log(this.user);
         this.updatedUser.userName = resp.userName;
         this.updatedUser.email = resp.email;
-        this.updatedUser.password = resp.password;
+        this.updatedUser.password = '';
         this.updatedUser.birthday = resp.birthday;
+
+        this.fetchApiData.getAllMovies().subscribe((resp: any) => {
+          this.favoriteMovies = resp.filter(
+            (m: { _id: any }) => this.user.favoriteMovies.indexOf(m._id) >= 0,
+          );
+        });
       });
     }
   }
 
   updateUser(): void {
-    const userName = localStorage.getItem('user');
-    if (userName) {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (user) {
       this.fetchApiData
-        .editUser(userName, this.updatedUser)
+        .editUser(user.userName, this.updatedUser)
         .subscribe((resp) => {
           this.snackBar.open('Profile updated!', 'OK', { duration: 2000 });
+          this.user = this.updatedUser;
+        });
+    }
+  }
+  removeFromFavorites(movie: any): void {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (user) {
+      this.fetchApiData
+        .deleteFavoriteMovie(user.userName, movie._id)
+        .subscribe((resp) => {
+          this.snackBar.open('Movie removed from Favorite List!', 'OK', {
+            duration: 2000,
+          });
+          this.user = resp;
+          this.favoriteMovies = this.favoriteMovies.filter(
+            (m: { _id: any }) => resp.favoriteMovies.indexOf(m._id) >= 0,
+          );
         });
     }
   }
   deleteUser(): void {
-    const userName = localStorage.getItem('user');
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
 
-    if (userName && confirm('Are you sure you want to delete your account?')) {
-      this.fetchApiData.deleteUser(userName).subscribe(() => {
+    if (user && confirm('Are you sure you want to delete your account?')) {
+      this.fetchApiData.deleteUser(user.userName).subscribe(() => {
         localStorage.clear();
         alert('Account deleted.');
         window.location.href = '/welcome';

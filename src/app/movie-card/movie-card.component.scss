@@ -29,3 +29,6 @@ mat-card-actions {
   justify-content: space-between;
   align-items: center;
 }
+.mat-mdc-button:not(:disabled) {
+  color: #fafafa;
+}
