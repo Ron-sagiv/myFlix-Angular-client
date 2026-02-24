@@ -17,3 +17,7 @@
   justify-content: center;
   gap: 20px;
 }
+.mat-mdc-outlined-button:not(:disabled) {
+  color: #fff !important;
+  background-color: #e50914 !important;
+}
