@@ -1,13 +1,48 @@
-.profile-container {
-  display: flex;
-  justify-content: center;
-  padding: 40px;
+.profile-wrapper {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.profile-wrapper h1 {
+  margin-bottom: 30px;
 }
 
 .profile-card {
-  width: 500px;
+  margin-bottom: 30px;
+  padding: 20px;
 }
 
+/* ACCOUNT INFO */
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #333;
+  padding-bottom: 8px;
+}
+
+.label {
+  font-weight: 500;
+  color: #b3b3b3;
+}
+
+/* FORM */
 mat-form-field {
   width: 100%;
+  margin-bottom: 15px;
+}
+
+/* DANGER ZONE */
+.danger-zone {
+  border: 1px solid #8b0000;
+}
+
+.danger-zone mat-card-title {
+  color: #ff4c4c;
 }

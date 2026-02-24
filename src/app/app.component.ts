@@ -41,4 +41,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'myFlix-Angular-client';
+  logout(): void {
+    localStorage.clear();
+    window.location.href = '/welcome';
+  }
 }

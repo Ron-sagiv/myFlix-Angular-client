@@ -22,4 +22,17 @@
     </button>
   </div>
 </div> -->
+
+<mat-toolbar class="navbar">
+  <!-- App Logo -->
+  <span class="logo" routerLink="/movies">FLIXIRAMA</span>
+
+  <span class="spacer"></span>
+
+  <!-- Navigation Buttons -->
+  <button mat-button routerLink="/movies">Movies</button>
+  <button mat-button routerLink="/profile">Profile</button>
+  <button mat-button (click)="logout()">Logout</button>
+</mat-toolbar>
+
 <router-outlet></router-outlet>

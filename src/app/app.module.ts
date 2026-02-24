@@ -23,7 +23,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { MovieDetailsDialogComponent } from './movie-details-dialog/movie-details-dialog.component';
 import { DirectorDialogComponent } from './director-dialog/director-dialog.component';
 import { GenreDialogComponent } from './genre-dialog/genre-dialog.component';
-
+import { MatToolbarModule } from '@angular/material/toolbar';
 const appRoutes: Routes = [
   { path: 'welcome', component: WelcomePageComponent },
   { path: 'movies', component: MovieCardComponent },
@@ -61,6 +61,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     MatIconModule,
     MatDialogModule,
+    MatToolbarModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

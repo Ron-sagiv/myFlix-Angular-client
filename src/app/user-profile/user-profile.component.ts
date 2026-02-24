@@ -11,6 +11,7 @@ export class UserProfileComponent implements OnInit {
   user: any = {};
   updatedUser = {
     userName: '',
+    password: '',
     email: '',
     birthday: '',
   };
@@ -27,6 +28,7 @@ export class UserProfileComponent implements OnInit {
         this.user = resp;
         this.updatedUser.userName = resp.userName;
         this.updatedUser.email = resp.email;
+        this.updatedUser.password = resp.password;
         this.updatedUser.birthday = resp.birthday;
       });
     }
@@ -40,6 +42,17 @@ export class UserProfileComponent implements OnInit {
         .subscribe((resp) => {
           this.snackBar.open('Profile updated!', 'OK', { duration: 2000 });
         });
+    }
+  }
+  deleteUser(): void {
+    const userName = localStorage.getItem('user');
+
+    if (userName && confirm('Are you sure you want to delete your account?')) {
+      this.fetchApiData.deleteUser(userName).subscribe(() => {
+        localStorage.clear();
+        alert('Account deleted.');
+        window.location.href = '/welcome';
+      });
     }
   }
 }
