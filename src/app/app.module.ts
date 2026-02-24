@@ -19,6 +19,10 @@ import { MovieCardComponent } from './movie-card/movie-card.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { MovieDetailsDialogComponent } from './movie-details-dialog/movie-details-dialog.component';
+import { DirectorDialogComponent } from './director-dialog/director-dialog.component';
+import { GenreDialogComponent } from './genre-dialog/genre-dialog.component';
 
 const appRoutes: Routes = [
   { path: 'welcome', component: WelcomePageComponent },
@@ -33,6 +37,14 @@ const appRoutes: Routes = [
     UserLoginFormComponent,
     MovieCardComponent,
     WelcomePageComponent,
+    UserProfileComponent,
+    MovieDetailsDialogComponent,
+    DirectorDialogComponent,
+    GenreDialogComponent,
+    MovieDetailsDialogComponent,
+    DirectorDialogComponent,
+    GenreDialogComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +60,7 @@ const appRoutes: Routes = [
     FormsModule,
     RouterModule.forRoot(appRoutes),
     MatIconModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
