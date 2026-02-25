@@ -25,11 +25,6 @@ import { MovieDetailsDialogComponent } from './movie-details-dialog/movie-detail
 import { DirectorDialogComponent } from './director-dialog/director-dialog.component';
 import { GenreDialogComponent } from './genre-dialog/genre-dialog.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-const appRoutes: Routes = [
-  { path: 'welcome', component: WelcomePageComponent },
-  { path: 'movies', component: MovieCardComponent },
-  { path: '', redirectTo: 'welcome', pathMatch: 'prefix' },
-];
 
 @NgModule({
   declarations: [
@@ -59,7 +54,6 @@ const appRoutes: Routes = [
     MatFormFieldModule,
     MatSnackBarModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes),
     MatIconModule,
     MatDialogModule,
     MatToolbarModule,

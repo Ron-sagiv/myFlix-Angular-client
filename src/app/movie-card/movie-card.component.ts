@@ -62,11 +62,12 @@ export class MovieCardComponent implements OnInit {
     if (user) {
       this.fetchApiData
         .addFavoriteMovie(user.userName, movie._id)
-        .subscribe(() => {
+        .subscribe((resp) => {
           this.snackBar.open('Movie added to Favorite List!', 'OK', {
             duration: 2000,
           });
           // Update the LocalStorage user object
+          localStorage.setItem('user', JSON.stringify(resp));
         });
     }
   }
@@ -81,6 +82,7 @@ export class MovieCardComponent implements OnInit {
             duration: 2000,
           });
           // Update the Favorites ID by maintaining a variable or sync user local storage
+          localStorage.setItem('user', JSON.stringify(resp));
         });
     }
   }

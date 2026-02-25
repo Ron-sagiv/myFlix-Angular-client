@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FetchApiDataService } from '../fetch-api-data.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -20,6 +21,7 @@ export class UserProfileComponent implements OnInit {
   constructor(
     private fetchApiData: FetchApiDataService,
     private snackBar: MatSnackBar,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -31,7 +33,8 @@ export class UserProfileComponent implements OnInit {
         this.updatedUser.userName = resp.userName;
         this.updatedUser.email = resp.email;
         this.updatedUser.password = '';
-        this.updatedUser.birthday = resp.birthday;
+        // this.updatedUser.birthday = resp.birthday;
+        this.updatedUser.birthday = resp.birthday.slice(0, 10);
 
         this.fetchApiData.getAllMovies().subscribe((resp: any) => {
           this.favoriteMovies = resp.filter(
@@ -50,6 +53,7 @@ export class UserProfileComponent implements OnInit {
         .subscribe((resp) => {
           this.snackBar.open('Profile updated!', 'OK', { duration: 2000 });
           this.user = this.updatedUser;
+          localStorage.setItem('user', JSON.stringify(this.user));
         });
     }
   }
@@ -66,6 +70,7 @@ export class UserProfileComponent implements OnInit {
           this.favoriteMovies = this.favoriteMovies.filter(
             (m: { _id: any }) => resp.favoriteMovies.indexOf(m._id) >= 0,
           );
+          localStorage.setItem('user', JSON.stringify(this.user));
         });
     }
   }
@@ -76,7 +81,7 @@ export class UserProfileComponent implements OnInit {
       this.fetchApiData.deleteUser(user.userName).subscribe(() => {
         localStorage.clear();
         alert('Account deleted.');
-        window.location.href = '/welcome';
+        this.router.navigate(['welcome']);
       });
     }
   }
