@@ -146,11 +146,9 @@ export class FetchApiDataService {
   // DELETE USER
   // ==========================
   public deleteUser(userName: string): Observable<any> {
-    return this.http
-      .delete(apiUrl + 'users/' + userName, {
-        headers: this.getTokenHeaders(),
-      })
-      .pipe(catchError(this.handleError));
+    return this.http.delete(apiUrl + 'users/' + userName, {
+      headers: this.getTokenHeaders(),
+    });
   }
 
   // ==========================
