@@ -52,8 +52,8 @@ export class UserProfileComponent implements OnInit {
         .editUser(user.userName, this.updatedUser)
         .subscribe((resp) => {
           this.snackBar.open('Profile updated!', 'OK', { duration: 2000 });
-          this.user = this.updatedUser;
-          localStorage.setItem('user', JSON.stringify(this.user));
+          this.user = resp;
+          localStorage.setItem('user', JSON.stringify(resp));
         });
     }
   }
