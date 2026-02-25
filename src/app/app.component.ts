@@ -53,7 +53,7 @@ export class AppComponent {
     }
   }
 
-  title = 'myFlix-Angular-client';
+  title = 'Flixirama-Angular-client';
 
   /**
    * Logs the user out of the application.
